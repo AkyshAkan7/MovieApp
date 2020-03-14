@@ -54,11 +54,50 @@
                     </tabBar>
                     <connections>
                         <segue destination="Wk4-J6-Pdd" kind="relationship" relationship="viewControllers" id="q7n-mt-G51"/>
+                        <segue destination="6Fj-c7-0aj" kind="relationship" relationship="viewControllers" id="73z-yh-ChS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZQ2-pv-2jd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-161" y="-706"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="nEa-sw-ppO">
+            <objects>
+                <viewController id="wae-Ea-mCZ" customClass="SettingsViewController" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="shI-Cb-zjX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="S5P-yt-xTY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="AyL-Ir-Wwg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m4z-pJ-I4g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1958" y="-706"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="pEA-Wy-c9W">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Fj-c7-0aj" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="Gear" id="48B-dv-L3W"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0Hb-PS-VbF">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wae-Ea-mCZ" kind="relationship" relationship="rootViewController" id="TbN-59-7Rz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ci-q7-EFG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1048" y="-706"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="Gear" width="25" height="25"/>
+    </resources>
 </document>

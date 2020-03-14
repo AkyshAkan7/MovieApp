@@ -9,6 +9,10 @@
 import UIKit
 import AlamofireImage
 
+enum Constants {
+    static let url = "https://image.tmdb.org/t/p/w780/"
+}
+
 class MovieCollectionViewCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
@@ -63,10 +67,13 @@ class MovieCollectionViewCell: UICollectionViewCell {
         titleLabel.text = movie.title
         yearLabel.text = movie.releaseDate
         averageVoteLabel.text = String(movie.averageVote!)
-        guard let imageURL = URL(string: "https://image.tmdb.org/t/p/w780/\(movie.posterPath ?? "")") else { return }
-        imageView.af_setImage(withURL: imageURL)
+        guard let imageUrl = URL(string: Constants.url + "/\(movie.posterPath!)") else { return }
+        imageView.af_setImage(withURL: imageUrl)
     }
-    
+}
+
+// MARK: - UI
+extension MovieCollectionViewCell {
     func makeUI() {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
@@ -107,4 +114,3 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
     }
 }
-

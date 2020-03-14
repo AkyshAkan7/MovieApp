@@ -68,7 +68,7 @@ extension MoviesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     
 }
 
-// MARK: - make UI
+// MARK: - UI
 extension MoviesTableViewCell {
     func makeUI() {
         contentView.addSubview(moviesCollectionView)

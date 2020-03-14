@@ -63,5 +63,21 @@ struct NetworkManager: Networkable {
             }
         }
     }
+    
+    static func getNowPlayingMovies(page: Int, completion: @escaping ([Movie]) -> ()) {
+        provider.request(.nowPlaying(page: page)) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let results = try JSONDecoder().decode(MovieResponse.self, from: response.data)
+                    completion(results.results)
+                } catch let error as NSError {
+                    print(error)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
 
 }

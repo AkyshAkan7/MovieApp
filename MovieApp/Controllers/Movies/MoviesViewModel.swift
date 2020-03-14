@@ -1,0 +1,13 @@
+//
+//  MovieDescriptionViewModel.swift
+//  MovieApp
+//
+//  Created by Akan Akysh on 3/13/20.
+//  Copyright © 2020 Akysh Akan. All rights reserved.
+//
+
+import UIKit
+
+class MoviesViewModel: NSObject {
+
+}

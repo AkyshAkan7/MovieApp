@@ -15,6 +15,7 @@ enum ApiManager {
     case topRatedMovies(page: Int)
     case upcomingMovies(page: Int)
     case popularMovies(page: Int)
+    case nowPlaying(page: Int)
     case latestMovie
 }
 
@@ -32,6 +33,8 @@ extension ApiManager: TargetType {
             return "/upcoming"
         case .popularMovies:
             return "/popular"
+        case .nowPlaying:
+            return "/now_playing"
         case .latestMovie:
             return "/latest"
         }
@@ -47,7 +50,7 @@ extension ApiManager: TargetType {
     
     var task: Task {
         switch self {
-        case .topRatedMovies(let page), .upcomingMovies(let page), .popularMovies(let page):
+        case .topRatedMovies(let page), .upcomingMovies(let page), .popularMovies(let page), .nowPlaying(let page):
             return .requestParameters(parameters: ["page": page, "api_key": APIKey], encoding: URLEncoding.default)
         case .latestMovie:
             return .requestParameters(parameters: ["api_key": APIKey], encoding: URLEncoding.default)
