@@ -9,18 +9,27 @@
 import UIKit
 import SnapKit
 
-class TopRatedViewController: UIViewController {
+protocol FeaturedViewControllerDelegate {
+    func pushToMovieDescriptionVC()
+}
+
+class FeaturedViewController: UIViewController {
     
     enum Constants {
         enum Title {
+            static let viewTitle = "Featured"
+            static let nowPlaying = "Now playing"
             static let topRated = "Top Rated"
             static let popular = "Popular"
             static let upcoming = "Upcoming"
-            static let nowPlaying = "Now playing"
+        }
+        enum Identifiers {
+            static let sectionCell = "SectionCell"
+            static let collectionViewCell = "CollectionViewCell"
         }
     }
     
-    private let viewModel = TopRatedViewModel()
+    private let viewModel = FeaturedViewModel()
     
     private let tableView = UITableView()
     
@@ -28,7 +37,6 @@ class TopRatedViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
-        setupNavigation()
         makeUI()
         parseData()
     }
@@ -36,9 +44,10 @@ class TopRatedViewController: UIViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(SectionTableViewCell.self, forCellReuseIdentifier: "SectionCell")
-        tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: "CollectionViewCell")
+        tableView.register(SectionTableViewCell.self, forCellReuseIdentifier: Constants.Identifiers.sectionCell)
+        tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: Constants.Identifiers.collectionViewCell)
         tableView.separatorStyle = .none
+        
     }
     
     func parseData() {
@@ -88,10 +97,33 @@ class TopRatedViewController: UIViewController {
         }
     }
     
+    // delegate function
+    func pushToMovieDescriptionVC() {
+        let vm = MovieDescriptionViewModel()
+        let vc = MovieDescriptionViewController(viewModel: vm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     // objc methods
     @objc func buttonTapped(_ sender: UIButton) {
         
-        let movieVC = MoviesViewController()
+        var title: String = ""
+        
+        switch sender.tag {
+        case 0:
+            title = Constants.Title.nowPlaying
+        case 2:
+            title = Constants.Title.topRated
+        case 4:
+            title = Constants.Title.popular
+        case 6:
+            title = Constants.Title.upcoming
+        default:
+            print("Error while pushing view controller")
+        }
+        
+        let vm = MoviesViewModel(title: title)
+        let movieVC = MoviesViewController(viewModel: vm)
         navigationController?.pushViewController(movieVC, animated: true)
     }
     
@@ -99,22 +131,26 @@ class TopRatedViewController: UIViewController {
 
 
 // MARK: - UI
-private extension TopRatedViewController {
-    func setupNavigation() {
-        navigationItem.title = "Featured"
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
+private extension FeaturedViewController {
     func makeUI() {
+        navigationItem.title = Constants.Title.viewTitle
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         view.addSubview(tableView)
         tableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            if #available(iOS 11, *){
+                $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+                $0.left.right.bottom.equalToSuperview()
+            } else {
+                $0.edges.equalToSuperview()
+            }
+            
         }
     }
 }
 
 // MARK: - table view delegate
-extension TopRatedViewController: UITableViewDelegate, UITableViewDataSource {
+extension FeaturedViewController: UITableViewDelegate, UITableViewDataSource, FeaturedViewControllerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.listItems.count
     }
@@ -124,17 +160,18 @@ extension TopRatedViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch item.itemType {
         case .section:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SectionCell", for: indexPath) as! SectionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.sectionCell, for: indexPath) as! SectionTableViewCell
             cell.configure(item: item as! SectionItem)
             cell.nextButton.tag = indexPath.row
             cell.nextButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+            cell.selectionStyle = .none
             return cell
         case .movies:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionViewCell", for: indexPath) as! MoviesTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.collectionViewCell, for: indexPath) as! MoviesTableViewCell
             cell.configure(item: item as! MovieItem)
+            cell.delegate = self
             return cell
         }
-        
     }
     
 }

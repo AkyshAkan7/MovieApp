@@ -18,7 +18,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         var img = UIImageView()
         img.contentMode = .scaleAspectFill
-        img.layer.cornerRadius = 12
+        img.layer.cornerRadius = 10
         img.clipsToBounds = true
         img.backgroundColor = .black
         return img
@@ -65,7 +65,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     func configure(movie: Movie) {
         titleLabel.text = movie.title
-        yearLabel.text = movie.releaseDate
+        yearLabel.text = String((movie.releaseDate?.prefix(4))!)
         averageVoteLabel.text = String(movie.averageVote!)
         guard let imageUrl = URL(string: Constants.url + "/\(movie.posterPath!)") else { return }
         imageView.af_setImage(withURL: imageUrl)
@@ -82,8 +82,7 @@ extension MovieCollectionViewCell {
         contentView.addSubview(starImageView)
         
         imageView.snp.makeConstraints {
-            $0.height.equalTo(180)
-            $0.width.equalTo(100)
+            $0.height.equalTo(170)
             $0.top.left.right.equalToSuperview()
         }
         
@@ -95,21 +94,20 @@ extension MovieCollectionViewCell {
         
         yearLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(5)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(5)
-            $0.bottom.equalToSuperview().offset(-5)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(2)
+            $0.width.equalTo(75)
         }
         
         starImageView.snp.makeConstraints {
-            $0.left.equalTo(yearLabel.snp.right).offset(12)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(5)
+            $0.right.equalTo(averageVoteLabel.snp.left).offset(-3)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(2)
             $0.height.width.equalTo(13)
         }
         
         averageVoteLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(5)
-            $0.left.equalTo(starImageView.snp.right).offset(3)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(2)
             $0.right.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(-5)
+            $0.width.equalTo(19)
         }
         
     }

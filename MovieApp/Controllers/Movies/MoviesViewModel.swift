@@ -8,6 +8,12 @@
 
 import UIKit
 
-class MoviesViewModel: NSObject {
-
+class MoviesViewModel {
+    var title: String
+    
+    var movies = [Movie]()
+    
+    init(title: String) {
+        self.title = title
+    }
 }

@@ -8,6 +8,6 @@
 
 import Foundation
 
-class SettingsViewModel {
+class ProfileViewModel {
     
 }

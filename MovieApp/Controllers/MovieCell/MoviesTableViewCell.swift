@@ -10,6 +10,8 @@ import UIKit
 
 class MoviesTableViewCell: UITableViewCell {
     
+    var delegate: FeaturedViewControllerDelegate?
+    
     private var movies = [Movie]()
     
     var moviesCollectionView: UICollectionView = {
@@ -52,18 +54,18 @@ extension MoviesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("/")
+        delegate?.pushToMovieDescriptionVC()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width / 3, height: collectionView.frame.height / 1.1)
+        return CGSize(width: collectionView.frame.width / 3.3, height: collectionView.frame.height / 1.1)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
+        return 25
     }
     
 }
@@ -75,8 +77,7 @@ extension MoviesTableViewCell {
         
         moviesCollectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-            $0.height.greaterThanOrEqualTo(255)
-            $0.width.equalTo(150)
+            $0.height.greaterThanOrEqualTo(240)
         }
     }
 }

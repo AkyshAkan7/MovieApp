@@ -9,6 +9,8 @@ target 'MovieApp' do
   pod 'AlamofireImage'
   pod 'SnapKit'
   pod 'Moya'
+  
+  pod 'Reveal-SDK', configurations: ['Debug']
 
 
 end

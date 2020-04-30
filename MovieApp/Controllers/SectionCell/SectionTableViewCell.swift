@@ -12,7 +12,7 @@ class SectionTableViewCell: UITableViewCell {
 
     let categoryLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 21)
         return label
     }()
     
@@ -45,15 +45,17 @@ extension SectionTableViewCell {
         contentView.addSubview(nextButton)
         
         categoryLabel.snp.makeConstraints {
-            $0.left.top.equalToSuperview().offset(15)
-            $0.bottom.equalToSuperview().offset(-15)
+            $0.top.equalTo(10)
+            $0.left.equalToSuperview().offset(20)
+            $0.bottom.equalToSuperview().offset(-10)
+            $0.right.equalTo(nextButton.snp.right)
         }
         
         nextButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(15)
-            $0.left.equalTo(categoryLabel.snp.right)
             $0.right.equalToSuperview().offset(-15)
-            $0.bottom.equalToSuperview().offset(-15)
+            $0.bottom.equalToSuperview().offset(-10)
+            $0.width.equalTo(60)
         }
         
     }

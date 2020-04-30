@@ -8,6 +8,6 @@
 
 import Foundation
 
-class TopRatedViewModel {
+class FeaturedViewModel {
     var listItems = [ListItem]()
 }

@@ -8,12 +8,11 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Settings"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
